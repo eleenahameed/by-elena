@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — By Elena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#EFEDE7; --cream:#FBFAF8; --ink:#1B1A18;
+    --taupe:#A79885; --taupe-soft:#D8D0C4; --line:#D9D3C7; --clay-deep:#8F4F45; --clay:#B7756A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bone); color:var(--ink); font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 40px; border-bottom:1px solid var(--line); background:var(--cream);
+  }
+  .logo{font-family:'Fraunces',serif; font-style:italic; font-size:22px;}
+  .logout-btn{
+    background:none; border:1px solid var(--ink); padding:9px 18px;
+    font-size:12px; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer;
+    font-family:'Inter',sans-serif; color:var(--ink);
+  }
+  .logout-btn:hover{background:var(--ink); color:var(--cream);}
+
+  main{padding:40px;}
+  h1{font-family:'Fraunces',serif; font-weight:400; font-size:30px; margin-bottom:6px;}
+  .sub{color:var(--taupe); font-size:14px; margin-bottom:32px;}
+
+  .stats{display:flex; gap:16px; margin-bottom:32px; flex-wrap:wrap;}
+  .stat-card{
+    background:var(--cream); border:1px solid var(--line); padding:20px 26px; min-width:140px;
+  }
+  .stat-card .num{font-family:'Fraunces',serif; font-size:28px;}
+  .stat-card .label{font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--taupe); margin-top:4px;}
+
+  .filters{display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
+  .filter-btn{
+    background:var(--cream); border:1px solid var(--line); padding:8px 16px;
+    font-size:12px; letter-spacing:0.04em; text-transform:uppercase; cursor:pointer;
+    font-family:'Inter',sans-serif; color:var(--taupe);
+  }
+  .filter-btn.active{background:var(--ink); color:var(--cream); border-color:var(--ink);}
+
+  table{width:100%; border-collapse:collapse; background:var(--cream); border:1px solid var(--line);}
+  th{
+    text-align:left; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--taupe); padding:14px 18px; border-bottom:1px solid var(--line);
+  }
+  td{padding:16px 18px; border-bottom:1px solid var(--line); font-size:14px; vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .items-list{font-size:12px; color:var(--taupe); line-height:1.6;}
+  .total-cell{font-family:'Fraunces',serif; font-style:italic; color:var(--clay-deep);}
+
+  select.status-select{
+    border:1px solid var(--line); background:var(--bone); padding:6px 10px;
+    font-family:'Inter',sans-serif; font-size:12px; color:var(--ink); cursor:pointer;
+  }
+  .badge{
+    display:inline-block; padding:4px 10px; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.04em; border-radius:2px;
+  }
+  .badge.pending{background:#F3E3C8; color:#8A6116;}
+  .badge.shipped{background:#D8E3EF; color:#2C5A82;}
+  .badge.delivered{background:#DCE9DC; color:#3C6B3C;}
+
+  .empty-state{
+    text-align:center; padding:80px 20px; color:var(--taupe); font-size:14px;
+  }
+  .loading{text-align:center; padding:60px; color:var(--taupe); font-size:14px;}
+
+  #auth-check{
+    display:flex; align-items:center; justify-content:center; min-height:100vh; color:var(--taupe);
+  }
+</style>
+</head>
+<body>
+
+<div id="auth-check">Checking login...</div>
+
+<div id="app" style="display:none;">
+  <header>
+    <div class="logo">By Elena — Admin</div>
+    <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+  </header>
+
+  <main>
+    <h1>Orders</h1>
+    <p class="sub">All orders placed through your store.</p>
+
+    <div class="stats">
+      <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">Total Orders</div></div>
+      <div class="stat-card"><div class="num" id="stat-pending">0</div><div class="label">Pending</div></div>
+      <div class="stat-card"><div class="num" id="stat-revenue">Rs 0</div><div class="label">Total Revenue</div></div>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+      <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">Pending</button>
+      <button class="filter-btn" data-filter="shipped" onclick="setFilter('shipped')">Shipped</button>
+      <button class="filter-btn" data-filter="delivered" onclick="setFilter('delivered')">Delivered</button>
+    </div>
+
+    <div id="orders-container">
+      <div class="loading">Loading orders...</div>
+    </div>
+  </main>
+</div>
+
+<script type="module">
+  import {
+    auth, db, onAuthStateChanged, signOut,
+    collection, getDocs, doc, updateDoc, query, orderBy
+  } from "./firebase-config.js";
+
+  let allOrders = [];
+  let currentFilter = 'all';
+
+  onAuthStateChanged(auth, (user) => {
+    if(!user){
+      window.location.href = "login.html";
+    } else {
+      document.getElementById('auth-check').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      loadOrders();
+    }
+  });
+
+  window.handleLogout = function(){
+    signOut(auth).then(() => window.location.href = "login.html");
+  };
+
+  async function loadOrders(){
+    try{
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      const snapshot = await getDocs(q);
+      allOrders = [];
+      snapshot.forEach(docSnap => {
+        allOrders.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      renderOrders();
+      renderStats();
+    }catch(err){
+      document.getElementById('orders-container').innerHTML =
+        `<div class="empty-state">Could not load orders. ${err.message}</div>`;
+    }
+  }
+
+  function renderStats(){
+    document.getElementById('stat-total').textContent = allOrders.length;
+    document.getElementById('stat-pending').textContent =
+      allOrders.filter(o => o.status === 'pending').length;
+    const revenue = allOrders.reduce((sum,o) => sum + (o.total || 0), 0);
+    document.getElementById('stat-revenue').textContent = 'Rs ' + revenue.toLocaleString('en-PK');
+  }
+
+  window.setFilter = function(filter){
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+    renderOrders();
+  };
+
+  function renderOrders(){
+    const container = document.getElementById('orders-container');
+    const filtered = currentFilter === 'all'
+      ? allOrders
+      : allOrders.filter(o => o.status === currentFilter);
+
+    if(filtered.length === 0){
+      container.innerHTML = `<div class="empty-state">No orders here yet.</div>`;
+      return;
+    }
+
+    const rows = filtered.map(o => {
+      const itemsText = (o.items || []).map(i => `${i.name} — Rs ${i.price}`).join('<br>');
+      const date = o.createdAt && o.createdAt.toDate ? o.createdAt.toDate().toLocaleString() : '—';
+      return `
+        <tr>
+          <td>
+            <strong>${o.customerName || '—'}</strong><br>
+            <span class="items-list">${o.phone || ''}</span>
+          </td>
+          <td class="items-list">${o.address || '—'}</td>
+          <td class="items-list">${itemsText}</td>
+          <td class="total-cell">Rs ${(o.total || 0).toLocaleString('en-PK')}</td>
+          <td class="items-list">${o.paymentMethod || '—'}</td>
+          <td>
+            <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
+              <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+              <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+              <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+            </select>
+          </td>
+          <td class="items-list">${date}</td>
+        </tr>
+      `;
+    }).join('');
+
+    container.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Address</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  window.updateStatus = async function(orderId, newStatus){
+    try{
+      await updateDoc(doc(db, "orders", orderId), { status: newStatus });
+      const order = allOrders.find(o => o.id === orderId);
+      if(order) order.status = newStatus;
+      renderStats();
+    }catch(err){
+      alert("Could not update status: " + err.message);
+    }
+  };
+</script>
+
+</body>
+</html>

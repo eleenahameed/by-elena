@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — By Elena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#EFEDE7; --cream:#FBFAF8; --ink:#1B1A18;
+    --taupe:#A79885; --line:#D9D3C7; --clay-deep:#8F4F45;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bone); color:var(--ink); font-family:'Inter',sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{
+    background:var(--cream); border:1px solid var(--line);
+    padding:48px 40px; width:100%; max-width:380px;
+  }
+  .logo{
+    font-family:'Fraunces',serif; font-style:italic; font-size:26px;
+    text-align:center; margin-bottom:6px;
+  }
+  .subtitle{
+    text-align:center; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--taupe); margin-bottom:36px;
+  }
+  .field{margin-bottom:20px;}
+  .field label{
+    display:block; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--taupe); margin-bottom:8px;
+  }
+  .field input{
+    width:100%; border:1px solid var(--line); background:var(--bone);
+    padding:12px 14px; font-family:'Inter',sans-serif; font-size:14px; color:var(--ink);
+  }
+  .field input:focus{outline:none; border-color:var(--ink);}
+  button{
+    width:100%; background:var(--ink); color:var(--cream); border:1px solid var(--ink);
+    padding:14px; font-size:13px; letter-spacing:0.06em; text-transform:uppercase;
+    cursor:pointer; margin-top:10px; font-family:'Inter',sans-serif;
+  }
+  button:hover{background:transparent; color:var(--ink);}
+  button:disabled{opacity:0.6; cursor:not-allowed;}
+  #error-msg{
+    color:var(--clay-deep); font-size:13px; text-align:center; margin-top:16px; display:none;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">By Elena</div>
+  <div class="subtitle">Admin Login</div>
+
+  <form id="login-form">
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="loginEmail" required placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPassword" required placeholder="••••••••">
+    </div>
+    <button type="submit" id="login-btn">Log In</button>
+    <p id="error-msg"></p>
+  </form>
+</div>
+
+<script type="module">
+  import { auth, signInWithEmailAndPassword, onAuthStateChanged } from "./firebase-config.js";
+
+  // If already logged in, go straight to dashboard
+  onAuthStateChanged(auth, (user) => {
+    if(user) window.location.href = "dashboard.html";
+  });
+
+  document.getElementById('login-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    btn.disabled = true;
+    btn.textContent = 'Logging in...';
+    errorMsg.style.display = 'none';
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        errorMsg.textContent = "Login failed — check your email and password.";
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Log In';
+      });
+  });
+</script>
+
+</body>
+</html>
