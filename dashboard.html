@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bone:#EFEDE7; --cream:#FBFAF8; --ink:#1B1A18;
-    --taupe:#A79885; --taupe-soft:#D8D0C4; --line:#D9D3C7; --clay-deep:#8F4F45; --clay:#B7756A;
+    --bone:#F5E9E3; --cream:#FBF3EF; --ink:#2B1620;
+    --taupe:#9C8078; --taupe-soft:#E3CFC7; --line:#E8D9D2; --clay-deep:#6E1E36; --clay:#A83250;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
@@ -178,13 +178,13 @@
     }
 
     const rows = filtered.map(o => {
-      const itemsText = (o.items || []).map(i => `${i.name} — Rs ${i.price}`).join('<br>');
+      const itemsText = (o.items || []).map(i => `${i.name}${i.size ? ' (Size ' + i.size + ')' : ''}${i.qty ? ' x' + i.qty : ''} — Rs ${i.price}`).join('<br>');
       const date = o.createdAt && o.createdAt.toDate ? o.createdAt.toDate().toLocaleString() : '—';
       return `
         <tr>
           <td>
             <strong>${o.customerName || '—'}</strong><br>
-            <span class="items-list">${o.phone || ''}</span>
+            <span class="items-list">${o.phone || ''}${o.email ? '<br>' + o.email : ''}</span>
           </td>
           <td class="items-list">${o.address || '—'}</td>
           <td class="items-list">${itemsText}</td>
