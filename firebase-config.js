@@ -13,6 +13,8 @@ import {
   getDocs,
   doc,
   updateDoc,
+  deleteDoc,
+  setDoc,
   query,
   orderBy,
   serverTimestamp
@@ -34,5 +36,5 @@ const db = getFirestore(app);
 export {
   auth, db,
   signInWithEmailAndPassword, onAuthStateChanged, signOut,
-  collection, addDoc, getDocs, doc, updateDoc, query, orderBy, serverTimestamp
+  collection, addDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, query, orderBy, serverTimestamp
 };
