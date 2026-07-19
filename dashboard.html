@@ -68,11 +68,100 @@
   .badge.pending{background:#F3E3C8; color:#8A6116;}
   .badge.shipped{background:#D8E3EF; color:#2C5A82;}
   .badge.delivered{background:#DCE9DC; color:#3C6B3C;}
+  .del-btn{
+    background:none; border:1px solid var(--clay-deep); color:var(--clay-deep);
+    padding:6px 12px; font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+    cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .del-btn:hover{background:var(--clay-deep); color:var(--cream);}
+
+  .toolbar{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:20px;}
+  .search-input{
+    flex:1 1 220px; border:1px solid var(--line); background:var(--cream);
+    padding:10px 14px; font-family:'Inter',sans-serif; font-size:13px; color:var(--ink);
+  }
+  .date-input{
+    border:1px solid var(--line); background:var(--cream); padding:10px 12px;
+    font-family:'Inter',sans-serif; font-size:13px; color:var(--ink);
+  }
+  .export-btn{
+    background:var(--ink); color:var(--cream); border:1px solid var(--ink);
+    padding:10px 18px; font-size:12px; letter-spacing:0.05em; text-transform:uppercase;
+    cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .export-btn:hover{background:transparent; color:var(--ink);}
+  tr.order-row{cursor:pointer;}
+  tr.order-row:hover{background:var(--bone);}
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(43,22,32,0.55); z-index:80;
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--cream); border:1px solid var(--line); max-width:520px; width:100%;
+    max-height:85vh; overflow-y:auto; padding:32px;
+  }
+  .modal-box h2{font-family:'Fraunces',serif; font-weight:400; font-size:24px; margin-bottom:18px;}
+  .modal-box .row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .modal-box .row span:first-child{color:var(--taupe);}
+  .modal-close{
+    background:none; border:1px solid var(--ink); padding:9px 18px; margin-top:20px; width:100%;
+    font-size:12px; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .modal-close:hover{background:var(--ink); color:var(--cream);}
 
   .empty-state{
     text-align:center; padding:80px 20px; color:var(--taupe); font-size:14px;
   }
   .loading{text-align:center; padding:60px; color:var(--taupe); font-size:14px;}
+
+  .tabs{display:flex; gap:8px; margin-bottom:28px; border-bottom:1px solid var(--line);}
+  .tab-btn{
+    background:none; border:none; padding:12px 4px; margin-right:24px;
+    font-size:13px; letter-spacing:0.04em; text-transform:uppercase; cursor:pointer;
+    font-family:'Inter',sans-serif; color:var(--taupe); border-bottom:2px solid transparent;
+  }
+  .tab-btn.active{color:var(--ink); border-bottom-color:var(--clay-deep);}
+
+  .inv-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;}
+  .inv-card{background:var(--cream); border:1px solid var(--line); padding:18px 20px;}
+  .inv-card.low{border-color:var(--clay-deep);}
+  .inv-name{font-family:'Fraunces',serif; font-size:16px; margin-bottom:10px;}
+  .inv-row{display:flex; align-items:center; gap:10px;}
+  .inv-row input{
+    width:70px; border:1px solid var(--line); background:var(--bone); padding:8px 10px;
+    font-family:'Inter',sans-serif; font-size:13px; color:var(--ink);
+  }
+  .inv-row button{
+    background:var(--ink); color:var(--cream); border:none; padding:8px 14px;
+    font-size:11px; text-transform:uppercase; letter-spacing:0.04em; cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .low-badge{display:inline-block; margin-top:8px; font-size:11px; color:var(--clay-deep); text-transform:uppercase; letter-spacing:0.04em;}
+
+  .product-form{
+    background:var(--cream); border:1px solid var(--line); padding:26px 28px; margin-bottom:32px; max-width:560px;
+  }
+  .form-row{display:flex; gap:16px;}
+  .form-row .field{flex:1;}
+  .product-form .field{margin-bottom:18px;}
+  .product-form label{
+    display:block; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--taupe); margin-bottom:8px;
+  }
+  .product-form input[type="text"], .product-form input[type="number"]{
+    width:100%; border:1px solid var(--line); background:var(--bone); padding:10px 12px;
+    font-family:'Inter',sans-serif; font-size:13px; color:var(--ink); box-sizing:border-box;
+  }
+  .size-checks{display:flex; gap:16px; font-size:13px;}
+  .size-checks label{display:flex; align-items:center; gap:6px; text-transform:none; letter-spacing:normal; color:var(--ink);}
+
+  .prod-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px;}
+  .prod-card{background:var(--cream); border:1px solid var(--line); overflow:hidden;}
+  .prod-card img{width:100%; height:180px; object-fit:cover; display:block;}
+  .prod-card .prod-info{padding:14px 16px;}
+  .prod-card .prod-name{font-family:'Fraunces',serif; font-size:15px; margin-bottom:4px;}
+  .prod-card .prod-price{color:var(--clay-deep); font-size:13px; margin-bottom:10px;}
 
   #auth-check{
     display:flex; align-items:center; justify-content:center; min-height:100vh; color:var(--taupe);
@@ -90,36 +179,108 @@
   </header>
 
   <main>
-    <h1>Orders</h1>
-    <p class="sub">All orders placed through your store.</p>
-
-    <div class="stats">
-      <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">Total Orders</div></div>
-      <div class="stat-card"><div class="num" id="stat-pending">0</div><div class="label">Pending</div></div>
-      <div class="stat-card"><div class="num" id="stat-revenue">Rs 0</div><div class="label">Total Revenue</div></div>
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-orders" onclick="switchTab('orders')">Orders</button>
+      <button class="tab-btn" id="tab-products" onclick="switchTab('products')">Products</button>
+      <button class="tab-btn" id="tab-inventory" onclick="switchTab('inventory')">Inventory</button>
     </div>
 
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
-      <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">Pending</button>
-      <button class="filter-btn" data-filter="shipped" onclick="setFilter('shipped')">Shipped</button>
-      <button class="filter-btn" data-filter="delivered" onclick="setFilter('delivered')">Delivered</button>
+    <div id="view-orders">
+      <h1>Orders</h1>
+      <p class="sub">All orders placed through your store.</p>
+
+      <div class="stats">
+        <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">Total Orders</div></div>
+        <div class="stat-card"><div class="num" id="stat-pending">0</div><div class="label">Pending</div></div>
+        <div class="stat-card"><div class="num" id="stat-revenue">Rs 0</div><div class="label">Total Revenue</div></div>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" class="search-input" id="search-input" placeholder="Search by name, phone, or email..." oninput="handleSearch()">
+        <input type="date" class="date-input" id="date-from" onchange="renderOrders()">
+        <input type="date" class="date-input" id="date-to" onchange="renderOrders()">
+        <button class="export-btn" onclick="exportCSV()">Export CSV</button>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+        <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">Pending</button>
+        <button class="filter-btn" data-filter="shipped" onclick="setFilter('shipped')">Shipped</button>
+        <button class="filter-btn" data-filter="delivered" onclick="setFilter('delivered')">Delivered</button>
+      </div>
+
+      <div id="orders-container">
+        <div class="loading">Loading orders...</div>
+      </div>
     </div>
 
-    <div id="orders-container">
-      <div class="loading">Loading orders...</div>
+    <div id="view-products" style="display:none;">
+      <h1>Products</h1>
+      <p class="sub">Add real photos and details. These appear on the store automatically — as soon as you add your first product, the sample illustrations are replaced.</p>
+
+      <div class="product-form">
+        <div class="form-row">
+          <div class="field">
+            <label>Product name</label>
+            <input type="text" id="pf-name" placeholder="e.g. Silk Wrap Blouse">
+          </div>
+          <div class="field">
+            <label>Price (Rs)</label>
+            <input type="number" id="pf-price" placeholder="4500">
+          </div>
+        </div>
+        <div class="field">
+          <label>Sizes available</label>
+          <div class="size-checks">
+            <label><input type="checkbox" value="S" checked> S</label>
+            <label><input type="checkbox" value="M" checked> M</label>
+            <label><input type="checkbox" value="L" checked> L</label>
+            <label><input type="checkbox" value="XL" checked> XL</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Product photo</label>
+          <input type="file" id="pf-image" accept="image/*" onchange="previewProductImage()">
+          <img id="pf-preview" style="display:none;max-width:140px;margin-top:10px;border:1px solid var(--line);">
+        </div>
+        <button class="export-btn" id="pf-submit" onclick="submitProduct()">Add Product</button>
+        <span id="pf-status" style="margin-left:14px;font-size:13px;color:var(--taupe);"></span>
+      </div>
+
+      <div class="prod-grid" id="products-container">
+        <div class="loading">Loading products...</div>
+      </div>
+    </div>
+
+    <div id="view-inventory" style="display:none;">
+      <h1>Inventory</h1>
+      <p class="sub">Manually track stock per product. Update numbers as you sell or restock. Low stock (5 or fewer) is highlighted.</p>
+      <div class="inv-grid" id="inventory-container">
+        <div class="loading">Loading inventory...</div>
+      </div>
     </div>
   </main>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this) closeModal()">
+  <div class="modal-box" id="modal-box"></div>
 </div>
 
 <script type="module">
   import {
     auth, db, onAuthStateChanged, signOut,
-    collection, getDocs, doc, updateDoc, query, orderBy
+    collection, getDocs, doc, updateDoc, deleteDoc, setDoc, query, orderBy
   } from "./firebase-config.js";
 
   let allOrders = [];
   let currentFilter = 'all';
+  let searchTerm = '';
+
+  window.handleSearch = function(){
+    searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
+    renderOrders();
+  };
 
   onAuthStateChanged(auth, (user) => {
     if(!user){
@@ -168,9 +329,29 @@
 
   function renderOrders(){
     const container = document.getElementById('orders-container');
-    const filtered = currentFilter === 'all'
+    let filtered = currentFilter === 'all'
       ? allOrders
       : allOrders.filter(o => o.status === currentFilter);
+
+    if(searchTerm){
+      filtered = filtered.filter(o =>
+        (o.customerName || '').toLowerCase().includes(searchTerm) ||
+        (o.phone || '').toLowerCase().includes(searchTerm) ||
+        (o.email || '').toLowerCase().includes(searchTerm)
+      );
+    }
+
+    const fromVal = document.getElementById('date-from').value;
+    const toVal = document.getElementById('date-to').value;
+    if(fromVal){
+      const fromDate = new Date(fromVal);
+      filtered = filtered.filter(o => o.createdAt && o.createdAt.toDate && o.createdAt.toDate() >= fromDate);
+    }
+    if(toVal){
+      const toDate = new Date(toVal);
+      toDate.setHours(23,59,59,999);
+      filtered = filtered.filter(o => o.createdAt && o.createdAt.toDate && o.createdAt.toDate() <= toDate);
+    }
 
     if(filtered.length === 0){
       container.innerHTML = `<div class="empty-state">No orders here yet.</div>`;
@@ -181,7 +362,7 @@
       const itemsText = (o.items || []).map(i => `${i.name}${i.size ? ' (Size ' + i.size + ')' : ''}${i.qty ? ' x' + i.qty : ''} — Rs ${i.price}`).join('<br>');
       const date = o.createdAt && o.createdAt.toDate ? o.createdAt.toDate().toLocaleString() : '—';
       return `
-        <tr>
+        <tr class="order-row" onclick="openOrderModal('${o.id}')">
           <td>
             <strong>${o.customerName || '—'}</strong><br>
             <span class="items-list">${o.phone || ''}${o.email ? '<br>' + o.email : ''}</span>
@@ -190,7 +371,7 @@
           <td class="items-list">${itemsText}</td>
           <td class="total-cell">Rs ${(o.total || 0).toLocaleString('en-PK')}</td>
           <td class="items-list">${o.paymentMethod || '—'}</td>
-          <td>
+          <td onclick="event.stopPropagation()">
             <select class="status-select" onchange="updateStatus('${o.id}', this.value)">
               <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
               <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>Shipped</option>
@@ -198,6 +379,7 @@
             </select>
           </td>
           <td class="items-list">${date}</td>
+          <td onclick="event.stopPropagation()"><button class="del-btn" onclick="deleteOrder('${o.id}')">Delete</button></td>
         </tr>
       `;
     }).join('');
@@ -213,12 +395,54 @@
             <th>Payment</th>
             <th>Status</th>
             <th>Date</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
       </table>
     `;
   }
+
+  window.openOrderModal = function(orderId){
+    const o = allOrders.find(x => x.id === orderId);
+    if(!o) return;
+    const itemsText = (o.items || []).map(i => `${i.name}${i.size ? ' (Size ' + i.size + ')' : ''}${i.qty ? ' x' + i.qty : ''} — Rs ${i.price}`).join('<br>');
+    const date = o.createdAt && o.createdAt.toDate ? o.createdAt.toDate().toLocaleString() : '—';
+    document.getElementById('modal-box').innerHTML = `
+      <h2>Order details</h2>
+      <div class="row"><span>Customer</span><span>${o.customerName || '—'}</span></div>
+      <div class="row"><span>Phone</span><span>${o.phone || '—'}</span></div>
+      <div class="row"><span>Email</span><span>${o.email || '—'}</span></div>
+      <div class="row"><span>Address</span><span style="text-align:right;">${o.address || '—'}</span></div>
+      <div class="row"><span>Items</span><span style="text-align:right;">${itemsText}</span></div>
+      <div class="row"><span>Total</span><span>Rs ${(o.total || 0).toLocaleString('en-PK')}</span></div>
+      <div class="row"><span>Payment method</span><span>${o.paymentMethod || '—'}</span></div>
+      <div class="row"><span>Status</span><span>${o.status || '—'}</span></div>
+      <div class="row"><span>Date</span><span>${date}</span></div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  };
+
+  window.closeModal = function(){
+    document.getElementById('modal-overlay').classList.remove('open');
+  };
+
+  window.exportCSV = function(){
+    const headers = ['Customer','Phone','Email','Address','Items','Total','Payment','Status','Date'];
+    const rows = allOrders.map(o => {
+      const itemsText = (o.items || []).map(i => `${i.name}${i.size ? ' (Size ' + i.size + ')' : ''} x${i.qty || 1}`).join('; ');
+      const date = o.createdAt && o.createdAt.toDate ? o.createdAt.toDate().toLocaleString() : '';
+      const esc = (v) => `"${String(v || '').replace(/"/g,'""')}"`;
+      return [o.customerName, o.phone, o.email, o.address, itemsText, o.total, o.paymentMethod, o.status, date].map(esc).join(',');
+    });
+    const csv = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `by-elena-orders-${new Date().toISOString().slice(0,10)}.csv`;
+    link.click();
+  };
 
   window.updateStatus = async function(orderId, newStatus){
     try{
@@ -230,7 +454,206 @@
       alert("Could not update status: " + err.message);
     }
   };
+
+  window.deleteOrder = async function(orderId){
+    if(!confirm("Delete this order permanently? This cannot be undone.")) return;
+    try{
+      await deleteDoc(doc(db, "orders", orderId));
+      allOrders = allOrders.filter(o => o.id !== orderId);
+      renderOrders();
+      renderStats();
+    }catch(err){
+      alert("Could not delete order: " + err.message);
+    }
+  };
+
+  // ---------- Tabs ----------
+  let inventoryLoaded = false;
+  let productsLoaded = false;
+  window.switchTab = function(tab){
+    document.getElementById('tab-orders').classList.toggle('active', tab === 'orders');
+    document.getElementById('tab-products').classList.toggle('active', tab === 'products');
+    document.getElementById('tab-inventory').classList.toggle('active', tab === 'inventory');
+    document.getElementById('view-orders').style.display = tab === 'orders' ? 'block' : 'none';
+    document.getElementById('view-products').style.display = tab === 'products' ? 'block' : 'none';
+    document.getElementById('view-inventory').style.display = tab === 'inventory' ? 'block' : 'none';
+    if(tab === 'inventory' && !inventoryLoaded){
+      inventoryLoaded = true;
+      loadInventory();
+    }
+    if(tab === 'products' && !productsLoaded){
+      productsLoaded = true;
+      loadProducts();
+    }
+  };
+
+  // ---------- Inventory ----------
+  const catalogProducts = [
+    "The Column Dress","Wide-Leg Trouser","Silk Wrap Blouse","Tailored Coat",
+    "Cashmere Knit","Pleated Midi Skirt","Linen Shirt Dress","Cropped Blazer",
+    "Straight Denim","Satin Slip Dress"
+  ];
+
+  function slugify(name){
+    return name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  }
+
+  async function loadInventory(){
+    const container = document.getElementById('inventory-container');
+    try{
+      const snapshot = await getDocs(collection(db, "inventory"));
+      const stockMap = {};
+      snapshot.forEach(docSnap => { stockMap[docSnap.id] = docSnap.data().stock; });
+
+      container.innerHTML = catalogProducts.map(name => {
+        const slug = slugify(name);
+        const stock = stockMap[slug] !== undefined ? stockMap[slug] : 0;
+        const isLow = stock <= 5;
+        return `
+          <div class="inv-card ${isLow ? 'low' : ''}" id="inv-${slug}">
+            <div class="inv-name">${name}</div>
+            <div class="inv-row">
+              <input type="number" min="0" id="stock-${slug}" value="${stock}">
+              <button onclick="saveStock('${slug}','${name.replace(/'/g,"\\'")}')">Save</button>
+            </div>
+            ${isLow ? '<span class="low-badge">Low stock</span>' : ''}
+          </div>
+        `;
+      }).join('');
+    }catch(err){
+      container.innerHTML = `<div class="empty-state">Could not load inventory. ${err.message}</div>`;
+    }
+  }
+
+  window.saveStock = async function(slug, name){
+    const input = document.getElementById('stock-' + slug);
+    const stock = parseInt(input.value, 10) || 0;
+    try{
+      await setDoc(doc(db, "inventory", slug), { name, stock });
+      const card = document.getElementById('inv-' + slug);
+      card.classList.toggle('low', stock <= 5);
+      const existingBadge = card.querySelector('.low-badge');
+      if(stock <= 5 && !existingBadge){
+        card.insertAdjacentHTML('beforeend', '<span class="low-badge">Low stock</span>');
+      } else if(stock > 5 && existingBadge){
+        existingBadge.remove();
+      }
+    }catch(err){
+      alert("Could not save stock: " + err.message);
+    }
+  };
+
+  // ---------- Products (real photos) ----------
+  let allProducts = [];
+
+  // Resizes + compresses an uploaded photo so it fits comfortably inside a Firestore document (free plan, no Storage needed)
+  function compressImage(file, maxWidth, quality){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const scale = Math.min(1, maxWidth / img.width);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => reject(new Error('Could not read image'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('Could not read file'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  window.previewProductImage = function(){
+    const fileInput = document.getElementById('pf-image');
+    const preview = document.getElementById('pf-preview');
+    const file = fileInput.files[0];
+    if(!file) { preview.style.display = 'none'; return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  };
+
+  window.submitProduct = async function(){
+    const name = document.getElementById('pf-name').value.trim();
+    const price = parseInt(document.getElementById('pf-price').value, 10);
+    const sizes = Array.from(document.querySelectorAll('.size-checks input:checked')).map(el => el.value);
+    const fileInput = document.getElementById('pf-image');
+    const file = fileInput.files[0];
+    const statusEl = document.getElementById('pf-status');
+    const submitBtn = document.getElementById('pf-submit');
+
+    if(!name || !price || !file){
+      statusEl.textContent = 'Please fill in name, price, and choose a photo.';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Uploading...';
+    try{
+      const imageData = await compressImage(file, 700, 0.75);
+      await addDoc(collection(db, "products"), {
+        name, price, sizes, image: imageData, createdAt: serverTimestamp()
+      });
+      statusEl.textContent = 'Product added!';
+      document.getElementById('pf-name').value = '';
+      document.getElementById('pf-price').value = '';
+      document.getElementById('pf-image').value = '';
+      document.getElementById('pf-preview').style.display = 'none';
+      loadProducts();
+    }catch(err){
+      statusEl.textContent = 'Could not add product: ' + err.message;
+    }finally{
+      submitBtn.disabled = false;
+    }
+  };
+
+  async function loadProducts(){
+    const container = document.getElementById('products-container');
+    try{
+      const snapshot = await getDocs(collection(db, "products"));
+      allProducts = [];
+      snapshot.forEach(docSnap => allProducts.push({ id: docSnap.id, ...docSnap.data() }));
+
+      if(allProducts.length === 0){
+        container.innerHTML = `<div class="empty-state">No products added yet — the store is showing sample illustrations. Add your first product above.</div>`;
+        return;
+      }
+
+      container.innerHTML = allProducts.map(p => `
+        <div class="prod-card">
+          <img src="${p.image}" alt="${p.name}">
+          <div class="prod-info">
+            <div class="prod-name">${p.name}</div>
+            <div class="prod-price">Rs ${(p.price || 0).toLocaleString('en-PK')}</div>
+            <button class="del-btn" onclick="deleteProduct('${p.id}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }catch(err){
+      container.innerHTML = `<div class="empty-state">Could not load products. ${err.message}</div>`;
+    }
+  }
+
+  window.deleteProduct = async function(productId){
+    if(!confirm("Delete this product? It will disappear from the store immediately.")) return;
+    try{
+      await deleteDoc(doc(db, "products", productId));
+      loadProducts();
+    }catch(err){
+      alert("Could not delete product: " + err.message);
+    }
+  };
 </script>
+
 
 </body>
 </html>
